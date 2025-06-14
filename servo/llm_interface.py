@@ -25,7 +25,7 @@ class LLMInterface:
                     },
                 }
             else:
-                return {"tool": "task_complete", "args": {"message": "done"}}
+                return {"tool": "task_complete", "args": {"summary": "done"}}
         payload = {"model": self.model, "messages": messages}
         resp = await self.client.post("/chat/completions", json=payload)
         resp.raise_for_status()
