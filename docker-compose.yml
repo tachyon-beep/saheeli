@@ -1,0 +1,13 @@
+version: '2.4'
+services:
+  saheeli:
+    build:
+      context: .
+      dockerfile: Dockerfile.orchestrator
+    volumes:
+      - .:/app
+      - ./results:/app/results
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    command: ["python", "-m", "saheeli.cli"]
