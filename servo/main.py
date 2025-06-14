@@ -3,6 +3,7 @@ from pathlib import Path
 from .llm_interface import LLMInterface
 from .agent import ServoAgent
 from saheeli.config import load_config, get_api_key
+import os
 
 
 def main() -> None:
@@ -10,7 +11,8 @@ def main() -> None:
     api_key = get_api_key(cfg)
     llm = LLMInterface(cfg.api_base, api_key, cfg.model_name)
     workspace = Path("/workspace")
-    agent = ServoAgent("task", workspace, llm)
+    task_id = os.getenv("TASK_ID", "task")
+    agent = ServoAgent(task_id, workspace, llm)
     asyncio.run(agent.run())
 
 

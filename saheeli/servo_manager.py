@@ -1,5 +1,6 @@
 from pathlib import Path
 import docker
+import os
 from .config import Config
 
 
@@ -18,10 +19,15 @@ class ServoManager:
             prompt.resolve(): {"bind": "/workspace/prompt.md", "mode": "ro"},
             workspace.resolve(): {"bind": "/workspace", "mode": "rw"},
         }
+        env = {
+            self.config.api_key_env_var: os.getenv(self.config.api_key_env_var, ""),
+            "TASK_ID": task_id,
+        }
         container = self.client.containers.run(
             self.config.servo_image,
             detach=True,
             volumes=volumes,
+            environment=env,
             cpu_period=100000,
             cpu_quota=int(self.config.cpu_limit * 100000),
             mem_limit=self.config.memory_limit,

@@ -18,12 +18,16 @@ class SaheeliOrchestrator:
         task_id = self.task_manager.add_task(prompt_path)
         return task_id
 
-    def launch_next(self) -> None:
+    def get_status(self):
+        return self.task_manager.list_tasks()
+
+    def launch_next_task(self) -> None:
         task = self.task_manager.next_task()
         if not task:
             return
         self.task_manager.update_status(task.task_id, TaskStatus.RUNNING)
         workspace = self.results_dir / task.task_id
+        workspace.mkdir(parents=True, exist_ok=True)
         container = self.servo_manager.run_servo(task.task_id, task.prompt, workspace)
         status_code = self.servo_manager.wait_for_exit(container)
         complete = self.servo_manager.check_complete(workspace)
