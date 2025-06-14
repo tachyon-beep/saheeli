@@ -21,13 +21,14 @@ def submit(prompt: Path = typer.Option(..., exists=True)) -> None:
     orchestrator = SaheeliOrchestrator(cfg)
     task_id = orchestrator.submit_task(prompt)
     typer.echo(f"Task {task_id} submitted")
+    orchestrator.launch_next_task()
 
 
 @task_app.command("status")
 def status() -> None:
     cfg = load_config()
     orchestrator = SaheeliOrchestrator(cfg)
-    for task in orchestrator.task_manager.list_tasks():
+    for task in orchestrator.get_status():
         typer.echo(f"{task.task_id}: {task.status}")
 
 
