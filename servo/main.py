@@ -1,3 +1,5 @@
+"""Entry point for the Servo container."""
+
 import asyncio
 from pathlib import Path
 from .llm_interface import LLMInterface
@@ -7,6 +9,7 @@ import os
 
 
 def main() -> None:
+    """Run the Servo agent inside the container."""
     cfg = load_config()
     api_key = get_api_key(cfg)
     llm = LLMInterface(cfg.api_base, api_key, cfg.model_name)
