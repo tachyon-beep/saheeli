@@ -1,4 +1,6 @@
-# Saheeli - A host-based orchestration system using Docker-based agents for complex or high risk tasks.
+# Saheeli
+
+A host-based orchestration system using Docker-based agents for complex or high risk tasks.
 
 ## **1. High-Level Architecture: The Foreman & Worker Model**
 
