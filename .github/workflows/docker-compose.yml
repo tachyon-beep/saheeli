@@ -28,12 +28,14 @@ jobs:
       - name: Wait for services to be healthy
         run: |
           echo "⏳ Waiting for app to be healthy…"
-          for attempt in {1..30}; do
+          MAX_RETRIES=${MAX_RETRIES:-30}
+          SLEEP_DURATION=${SLEEP_DURATION:-1}
+          for attempt in $(seq 1 $MAX_RETRIES); do
             if curl -s -f http://localhost:8000/health; then
               echo "✅ App is healthy!"
               exit 0
             fi
-            sleep 1
+            sleep $SLEEP_DURATION
           done
           echo "❌ App never became healthy" >&2
           exit 1
