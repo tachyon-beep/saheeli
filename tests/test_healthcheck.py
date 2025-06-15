@@ -1,4 +1,3 @@
-from pathlib import Path
 from servo.healthcheck import check_workspace
 from saheeli.healthcheck import check_config
 

@@ -1,4 +1,6 @@
 import sys
+from pydantic import ValidationError
+import yaml
 from .config import load_config
 
 
@@ -7,7 +9,7 @@ def check_config() -> bool:
     try:
         load_config()
         return True
-    except (ConfigError, FileNotFoundError):
+    except (yaml.YAMLError, ValidationError, FileNotFoundError):
         return False
 
 
