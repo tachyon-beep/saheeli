@@ -9,6 +9,8 @@ from .utils import generate_id
 
 
 class TaskStatus(str, Enum):
+    """Enumerated states for tasks."""
+
     PENDING = "pending"
     RUNNING = "running"
     COMPLETE = "complete"
@@ -17,6 +19,8 @@ class TaskStatus(str, Enum):
 
 @dataclass
 class Task:
+    """Data model describing a work item."""
+
     task_id: str
     prompt: Path
     status: TaskStatus

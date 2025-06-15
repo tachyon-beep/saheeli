@@ -1,9 +1,10 @@
 """Configuration utilities and models."""
 
 from pathlib import Path
+import os
+
 from pydantic import BaseModel
 import yaml
-import os
 
 
 class Config(BaseModel):

@@ -1,8 +1,10 @@
 """Management of Servo Docker containers."""
 
 from pathlib import Path
-import docker
 import os
+
+import docker
+
 from .config import Config
 
 
