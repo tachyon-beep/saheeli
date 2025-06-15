@@ -11,4 +11,6 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 USER servo
 WORKDIR /workspace
 
+HEALTHCHECK CMD ["python", "-m", "servo.healthcheck"]
+
 ENTRYPOINT ["python", "/app/servo/main.py"]

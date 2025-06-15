@@ -28,3 +28,12 @@ docker compose run --rm saheeli task submit --prompt /app/prompts/validation_tas
 ```
 
 Result artifacts are written to `results/` on the host.
+
+Both images expose a simple health check used by Docker:
+
+```bash
+docker compose run --rm saheeli python -m saheeli.healthcheck
+docker compose run --rm servo python -m servo.healthcheck
+```
+
+`docker compose ps` will report the health status for each container.
