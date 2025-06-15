@@ -4,7 +4,7 @@ from typing import List, Dict
 import httpx
 
 
-class LLMInterface:
+class LLMInterface:  # pylint: disable=too-few-public-methods
     """Minimal asynchronous client for chatting with an LLM."""
 
     def __init__(self, api_base: str, api_key: str, model: str) -> None:
@@ -30,8 +30,7 @@ class LLMInterface:
                         "content": "Hello from Saheeli's Servo!",
                     },
                 }
-            else:
-                return {"tool": "task_complete", "args": {"summary": "done"}}
+            return {"tool": "task_complete", "args": {"summary": "done"}}
         payload = {"model": self.model, "messages": messages}
         resp = await self.client.post("/chat/completions", json=payload)
         resp.raise_for_status()
