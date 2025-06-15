@@ -1,3 +1,5 @@
+"""Simple health checks for the Saheeli container."""
+
 import sys
 from pydantic import ValidationError
 import yaml

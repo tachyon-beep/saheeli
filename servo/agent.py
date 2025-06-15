@@ -15,7 +15,7 @@ class ToolCommand(BaseModel):
     args: dict
 
 
-class ServoAgent:
+class ServoAgent:  # pylint: disable=too-many-instance-attributes
     """Agentic loop orchestrating tool execution."""
 
     def __init__(self, task_id: str, workspace: Path, llm: LLMInterface) -> None:

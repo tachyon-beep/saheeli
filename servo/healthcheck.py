@@ -1,3 +1,5 @@
+"""Health check utilities for Servo containers."""
+
 from pathlib import Path
 import sys
 

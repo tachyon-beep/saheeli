@@ -15,7 +15,7 @@ import httpx
 from .utils import read_json, write_json
 
 
-class Toolbox:
+class Toolbox:  # pylint: disable=too-many-public-methods
     """Collection of helper tools exposed to the agent."""
 
     def __init__(self, workspace: Path) -> None:
@@ -96,13 +96,13 @@ class Toolbox:
         return {"status": "ok", "matches": matches}
 
     def create_archive(
-        self, archive_path: str, source_paths: List[str], format: str = "zip"
+        self, archive_path: str, archive_format: str = "zip"
     ) -> dict:
         """Create an archive from the workspace."""
         archive_file = self._resolve(archive_path)
         root = archive_file.with_suffix("")
         base_dir = self._resolve(".")
-        shutil.make_archive(str(root), format, base_dir, base_dir)
+        shutil.make_archive(str(root), archive_format, base_dir, base_dir)
         return {"status": "ok", "archive": str(archive_file)}
 
     def extract_archive(self, archive_path: str, destination_path: str) -> dict:
@@ -146,6 +146,7 @@ class Toolbox:
         return {"status": "ok", "stdout": proc.stdout, "stderr": proc.stderr}
 
     def package_install(self, packages: List[str], manager: str = "pip") -> dict:
+        """Install packages using pip or apt."""
         if manager == "pip":
             cmd = ["pip", "install", *packages]
         else:
@@ -154,6 +155,7 @@ class Toolbox:
         return {"status": "ok", "stdout": proc.stdout, "stderr": proc.stderr}
 
     def git_clone(self, repo_url: str, destination_path: str) -> dict:
+        """Clone a git repository."""
         proc = subprocess.run(
             ["git", "clone", repo_url, destination_path],
             capture_output=True,
@@ -163,6 +165,7 @@ class Toolbox:
         return {"status": "ok", "stdout": proc.stdout, "stderr": proc.stderr}
 
     def git_commit(self, message: str, add_all: bool = True) -> dict:
+        """Create a git commit with the specified message."""
         if add_all:
             subprocess.run(["git", "add", "-A"], check=False)
         proc = subprocess.run(
@@ -171,6 +174,7 @@ class Toolbox:
         return {"status": "ok", "stdout": proc.stdout, "stderr": proc.stderr}
 
     def git_diff(self, cached: bool = False) -> dict:
+        """Return the output of ``git diff``."""
         cmd = ["git", "diff"]
         if cached:
             cmd.append("--cached")

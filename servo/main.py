@@ -1,11 +1,13 @@
 """Entry point for the Servo container."""
 
+import os
 import asyncio
 from pathlib import Path
+
+from saheeli.config import load_config, get_api_key
+
 from .llm_interface import LLMInterface
 from .agent import ServoAgent
-from saheeli.config import load_config, get_api_key
-import os
 
 
 def main() -> None:
