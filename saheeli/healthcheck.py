@@ -7,7 +7,7 @@ def check_config() -> bool:
     try:
         load_config()
         return True
-    except Exception:
+    except (ConfigError, FileNotFoundError):
         return False
 
 
